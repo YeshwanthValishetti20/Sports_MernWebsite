@@ -497,7 +497,7 @@ const Cricket = () => {
             {matches
               .filter(
                 (match) =>
-                  match.status === "upcoming" && match.gender === "boys"
+                  match.status === "upcomming" && match.gender === "boys"
               )
               .map((match) => (
                 <li
@@ -578,7 +578,7 @@ const Cricket = () => {
             {matches
               .filter(
                 (match) =>
-                  match.status === "upcoming" && match.gender === "girls"
+                  match.status === "upcomming" && match.gender === "girls"
               )
               .map((match) => (
                 <li
