@@ -397,7 +397,7 @@ const Badminton = () => {
                   <option value="select">Select</option>
                   <option value="previous">Previous</option>
                   <option value="present">Present</option>
-                  <option value="upcomming">upcomming</option>
+                  <option value="upcoming">upcoming</option>
                 </select>
               </div>
 
@@ -499,7 +499,7 @@ const Badminton = () => {
             {matches
               .filter(
                 (match) =>
-                  match.status === "upcomming" && match.gender === "boys"
+                  match.status === "upcoming" && match.gender === "boys"
               )
               .map((match) => (
                 <li
@@ -580,7 +580,7 @@ const Badminton = () => {
             {matches
               .filter(
                 (match) =>
-                  match.status === "upcomming" && match.gender === "girls"
+                  match.status === "upcoming" && match.gender === "girls"
               )
               .map((match) => (
                 <li
