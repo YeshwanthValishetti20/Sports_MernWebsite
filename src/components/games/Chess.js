@@ -437,154 +437,169 @@ const Chess = () => {
       )}
 
       {/* ------------------------------------------------------------------ */}
-      <div>
-        <h2>Boys Matches</h2>
-        <div className="row">
-          <div className="col-md-4">
-            <h4>Previous</h4>
-            <ul className="list-group">
-              {matches
-                .filter(
-                  (match) => match.status === "previous" && match.gender === "boys"
-                )
-                .map((match) => (
-                  <li
-                    key={match._id}
-                    className={`list-group-item ${
-                      selectedMatch && selectedMatch._id === match._id
-                        ? "active"
-                        : ""
-                    }`}
-                    onClick={() => handleRowClick(match)}
-                  >
-                    {match.name}
-                  </li>
-                ))}
-            </ul>
-          </div>
-          <div className="col-md-4">
-            <h4>Today</h4>
-            <ul className="list-group">
-              {matches
-                .filter(
-                  (match) =>
-                    match.status === "present" && match.gender === "boys"
-                )
-                .map((match) => (
-                  <li
-                    key={match._id}
-                    className={`list-group-item ${
-                      selectedMatch && selectedMatch._id === match._id
-                        ? "active"
-                        : ""
-                    }`}
-                    onClick={() => handleRowClick(match)}
-                  >
-                    {match.name}
-                  </li>
-                ))}
-            </ul>
-          </div>
-          <div className="col-md-4">
-            <h4>Upcomming</h4>
-            <ul className="list-group">
-              {matches
-                .filter(
-                  (match) =>
-                    match.status === "upcomming" && match.gender === "boys"
-                )
-                .map((match) => (
-                  <li
-                    key={match._id}
-                    className={`list-group-item ${
-                      selectedMatch && selectedMatch._id === match._id
-                        ? "active"
-                        : ""
-                    }`}
-                    onClick={() => handleRowClick(match)}
-                  >
-                    {match.name}
-                  </li>
-                ))}
-            </ul>
-          </div>
-        </div>
-      </div>
+      <div className="table-responsive">
+  {/* Boys Matches */}
+  <table className="table">
+    <thead>
+      <tr>
+      <th colSpan="3" className="display-6 text-danger">Boys Matches</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>
+          <h4>Previous</h4>
+          <ul className="list-group">
+            {matches
+              .filter(
+                (match) => match.status === "previous" && match.gender === "boys"
+              )
+              .map((match) => (
+                <li
+                  key={match._id}
+                  className={`list-group-item ${
+                    selectedMatch && selectedMatch._id === match._id
+                      ? "active"
+                      : ""
+                  }`}
+                  onClick={() => handleRowClick(match)}
+                >
+                  {match.name}
+                </li>
+              ))}
+          </ul>
+        </td>
+        <td>
+          <h4>Today</h4>
+          <ul className="list-group">
+            {matches
+              .filter(
+                (match) =>
+                  match.status === "present" && match.gender === "boys"
+              )
+              .map((match) => (
+                <li
+                  key={match._id}
+                  className={`list-group-item ${
+                    selectedMatch && selectedMatch._id === match._id
+                      ? "active"
+                      : ""
+                  }`}
+                  onClick={() => handleRowClick(match)}
+                >
+                  {match.name}
+                </li>
+              ))}
+          </ul>
+        </td>
+        <td>
+          <h4>Upcoming</h4>
+          <ul className="list-group">
+            {matches
+              .filter(
+                (match) =>
+                  match.status === "upcoming" && match.gender === "boys"
+              )
+              .map((match) => (
+                <li
+                  key={match._id}
+                  className={`list-group-item ${
+                    selectedMatch && selectedMatch._id === match._id
+                      ? "active"
+                      : ""
+                  }`}
+                  onClick={() => handleRowClick(match)}
+                >
+                  {match.name}
+                </li>
+              ))}
+          </ul>
+        </td>
+      </tr>
+    </tbody>
+  </table>
 
-      {/* Girls Matches */}
-      <div>
-        <h2>Girls Matches</h2>
-        <div className="row">
-          <div className="col-md-4">
-            <h4>Previous</h4>
-            <ul className="list-group">
-              {matches
-                .filter(
-                  (match) => match.status === "previous" && match.gender === "girls"
-                )
-                .map((match) => (
-                  <li
-                    key={match._id}
-                    className={`list-group-item ${
-                      selectedMatch && selectedMatch._id === match._id
-                        ? "active"
-                        : ""
-                    }`}
-                    onClick={() => handleRowClick(match)}
-                  >
-                    {match.name}
-                  </li>
-                ))}
-            </ul>
-          </div>
-          <div className="col-md-4">
-            <h4>Today</h4>
-            <ul className="list-group">
-              {matches
-                .filter(
-                  (match) =>
-                    match.status === "present" && match.gender === "girls"
-                )
-                .map((match) => (
-                  <li
-                    key={match._id}
-                    className={`list-group-item ${
-                      selectedMatch && selectedMatch._id === match._id
-                        ? "active"
-                        : ""
-                    }`}
-                    onClick={() => handleRowClick(match)}
-                  >
-                    {match.name}
-                  </li>
-                ))}
-            </ul>
-          </div>
-          <div className="col-md-4">
-            <h4>Upcomming</h4>
-            <ul className="list-group">
-              {matches
-                .filter(
-                  (match) =>
-                    match.status === "upcomming" && match.gender === "girls"
-                )
-                .map((match) => (
-                  <li
-                    key={match._id}
-                    className={`list-group-item ${
-                      selectedMatch && selectedMatch._id === match._id
-                        ? "active"
-                        : ""
-                    }`}
-                    onClick={() => handleRowClick(match)}
-                  >
-                    {match.name}
-                  </li>
-                ))}
-            </ul>
-          </div>
-        </div>
-      </div>
+  {/* Girls Matches */}
+  <table className="table">
+    <thead>
+      <tr>
+      <th colSpan="3" className="display-6 text-danger">Girls Matches</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>
+          <h4>Previous</h4>
+          <ul className="list-group">
+            {matches
+              .filter(
+                (match) => match.status === "previous" && match.gender === "girls"
+              )
+              .map((match) => (
+                <li
+                  key={match._id}
+                  className={`list-group-item ${
+                    selectedMatch && selectedMatch._id === match._id
+                      ? "active"
+                      : ""
+                  }`}
+                  onClick={() => handleRowClick(match)}
+                >
+                  {match.name}
+                </li>
+              ))}
+          </ul>
+        </td>
+        <td>
+          <h4>Today</h4>
+          <ul className="list-group">
+            {matches
+              .filter(
+                (match) =>
+                  match.status === "present" && match.gender === "girls"
+              )
+              .map((match) => (
+                <li
+                  key={match._id}
+                  className={`list-group-item ${
+                    selectedMatch && selectedMatch._id === match._id
+                      ? "active"
+                      : ""
+                  }`}
+                  onClick={() => handleRowClick(match)}
+                >
+                  {match.name}
+                </li>
+              ))}
+          </ul>
+        </td>
+        <td>
+          <h4>Upcoming</h4>
+          <ul className="list-group">
+            {matches
+              .filter(
+                (match) =>
+                  match.status === "upcoming" && match.gender === "girls"
+              )
+              .map((match) => (
+                <li
+                  key={match._id}
+                  className={`list-group-item ${
+                    selectedMatch && selectedMatch._id === match._id
+                      ? "active"
+                      : ""
+                  }`}
+                  onClick={() => handleRowClick(match)}
+                >
+                  {match.name}
+                </li>
+              ))}
+          </ul>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
 
       {/* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */}
       { selectedMatch && (

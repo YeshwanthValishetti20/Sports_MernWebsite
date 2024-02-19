@@ -7,6 +7,8 @@ import { Button } from "antd";
 function NavbarPage() {
   const [showLogoutSuccessMessage, setShowLogoutSuccessMessage] =
     useState(false);
+    const [isNavbarOpen, setIsNavbarOpen] = useState(false); // State to control navbar visibility
+
 
   const navigate = useNavigate();
   const isAdminLoggedIn = localStorage.getItem("isAdmin") === "true";
@@ -77,7 +79,7 @@ function NavbarPage() {
         <Link className="navbar-brand" onClick={scrollToTop}style={{ display: 'flex', alignItems: 'center' }}>
           <BiHome className="mr-2" style={{ fontSize: '1.5rem' }}  /> Home
         </Link>
-        <button
+        {/* <button
           className="navbar-toggler"
           type="button"
           data-bs-toggle="collapse"
@@ -88,8 +90,17 @@ function NavbarPage() {
         >
           <span className="navbar-toggler-icon"></span>
         </button>
+         */}
+         <button
+          className="navbar-toggler"
+          type="button"
+          onClick={() => setIsNavbarOpen(!isNavbarOpen)} // Toggle navbar visibility
+          aria-label="Toggle navigation"
+        >
+          <span className="navbar-toggler-icon"></span>
+        </button>
 
-        <div className="collapse navbar-collapse" id="navbarNav">
+        <div className={`collapse navbar-collapse ${isNavbarOpen ? 'show' : ''}`} id="navbarNav">
           <ul className="navbar-nav ml-auto">
             <li className="nav-item">
             <Link

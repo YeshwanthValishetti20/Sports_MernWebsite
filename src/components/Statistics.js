@@ -1,249 +1,132 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
-import { PieChart, Pie, Cell } from "recharts";
+import React, { useState } from 'react';
+import { RiMailLine, RiInstagramLine } from 'react-icons/ri';
 
-const Statistics = () => {
-  const isAdmin = localStorage.getItem("isAdmin") === "true"; // Retrieve and parse admin status
+const ClubMembers = () => {
+  const [showIcons, setShowIcons] = useState(null);
 
-  const [statistics, setStatistics] = useState([]);
-  const [selectedStatistic, setSelectedStatistic] = useState(null);
-  const [formData, setFormData] = useState({
-    branchName: "",
-    wins: 0,
-    list: ""
-  });
-  const [showForm, setShowForm] = useState(false);
-
-  useEffect(() => {
-    fetchStatistics();
-  }, []);
-
-  const fetchStatistics = () => {
-    axios
-      .get("https://kreedacbit.onrender.com/api/auth/getAllStatistics")
-      .then((response) => setStatistics(response.data))
-      .catch((error) => console.error(error));
-  };
-
-  const handleRowClick = (statistic) => {
-    setSelectedStatistic(statistic);
-    setFormData({
-      branchName: statistic.branchName,
-      wins: statistic.wins,
-      list: statistic.list.join(", ")
-    });
-    setShowForm(true);
-  };
-
-  const handleInputChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
-
-  const handleSubmit = () => {
-    const { branchName, wins, list } = formData;
-    const data = {
-      branchName,
-      wins: parseInt(wins),
-      list: list.split(",").map((item) => item.trim())
-    };
-
-    if (selectedStatistic) {
-      axios
-        .put(
-          `https://kreedacbit.onrender.com/api/auth/updateStatistic/${selectedStatistic._id}`,
-          data
-        )
-        .then(() => {
-          fetchStatistics();
-          setSelectedStatistic(null);
-          // setShowForm(false);
-        })
-        .catch((error) => console.error(error));
-    } else {
-      axios
-        .post("https://kreedacbit.onrender.com/api/auth/addStatistic", data)
-        .then(() => {
-          fetchStatistics();
-          setFormData({
-            branchName: "",
-            wins: 0,
-            list: ""
-          });
-        })
-        .catch((error) => console.error(error));
-    }
-  };
-
-  const handleDelete = () => {
-    if (selectedStatistic) {
-      axios
-        .delete(
-          `https://kreedacbit.onrender.com/api/auth/deleteStatistic/${selectedStatistic._id}`
-        )
-        .then(() => {
-          fetchStatistics();
-          setSelectedStatistic(null);
-          setShowForm(false);
-        })
-        .catch((error) => console.error(error));
-    }
-  };
-
-  const handleToggleForm = () => {
-    setShowForm(!showForm);
-    if (!showForm) {
-      setFormData({
-        branchName: "",
-        wins: 0,
-        list: ""
-      });
-      setSelectedStatistic(null);
-    }
-  };
-
-  const handleclearform = () => {
-    if (showForm) {
-      setFormData({
-        branchName: "",
-        wins: 0,
-        list: ""
-      });
-      setSelectedStatistic(null);
-    }
-  };
-
-  // Prepare data for the pie chart
-  const pieChartData = statistics.map((statistic) => ({
-    name: statistic.branchName, // Branch name
-    value: statistic.wins // Wins
-  }));
-
-  const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042"];
+  const teamMembers = [
+    {
+      name: 'President',
+      imgUrl: 'images/presedent.jpg',
+      description: 'Vishnu Revanth Reddy',
+    },
+    {
+      name: 'General Secretary',
+      imgUrl: 'images/secretary.jpg',
+      description: 'Mansi',
+    },
+    {
+      name: 'Pre Head',
+      imgUrl: 'images/prehead.jpg',
+      description: 'Dhruv pechetty ',
+    },
+    {
+      name: 'convenor',
+      imgUrl: 'images/convenor.jpg',
+      description: 'Karthik reddy pesaru',
+    },
+  ];
 
   return (
-    <div className="container mt-4">
-      <h1>Statistics</h1>
-      {isAdmin && (
-        <button onClick={handleToggleForm} className="btn btn-secondary mb-3">
-          {showForm ? "Hide" : "Enter"}
-        </button>
-      )}
-
-      {isAdmin && showForm && (
-        <div className="row">
-          <div className="col-md-4">
-            <label>Branch Name:</label>
-            <input
-              type="text"
-              name="branchName"
-              value={formData.branchName}
-              onChange={handleInputChange}
-              className="form-control mb-2"
-            />
-          </div>
-          <div className="col-md-4">
-            <label>Wins:</label>
-            <input
-              type="number"
-              name="wins"
-              value={formData.wins}
-              onChange={handleInputChange}
-              className="form-control mb-2"
-            />
-          </div>
-          <div className="col-md-4">
-            <label>List of Wins:</label>
-            <input
-              type="text"
-              name="list"
-              value={formData.list}
-              onChange={handleInputChange}
-              className="form-control mb-2"
-            />
-          </div>
-
-          <div className="col-md-12 mt-3">
-            <button onClick={handleSubmit} className="btn btn-primary mr-2">
-              {selectedStatistic ? "Update" : "Add"}
-            </button>
-            <button onClick={handleDelete} className="btn btn-danger">
-              Delete
-            </button>
-            <button
-              onClick={handleclearform}
-              className="btn btn-secondary ml-2"
-            >
-              Clear
-            </button>
-          </div>
-        </div>
-      )}
-
-      <table className="table mt-3">
-        <thead>
-          <tr>
-            <th>S.No</th>
-            <th>Branch Name</th>
-            <th>Wins</th>
-            <th>List of Wins</th>
-          </tr>
-        </thead>
-        <tbody>
-          {statistics.map((statistic, index) => (
-            <tr
-              key={index}
-              onClick={() => handleRowClick(statistic)}
-              className={`${
-                selectedStatistic && selectedStatistic._id === statistic._id
-                  ? "active"
-                  : ""
-              }`}
-            >
-              <td>{index + 1}</td>
-              <td>{statistic.branchName}</td>
-              <td>{statistic.wins}</td>
-              <td>{statistic.list.join(", ")}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-
-      <div className="mt-5">
-        <PieChart width={400} height={400}>
-          <Pie
-            dataKey="value"
-            data={pieChartData}
-            cx="50%"
-            cy="50%"
-            outerRadius={150}
-            fill="#8884d8"
-            label={({ cx, cy, midAngle, innerRadius, outerRadius, percent, index }) => {
-              const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
-              const x = cx + radius * Math.cos(-midAngle * (Math.PI / 180));
-              const y = cy + radius * Math.sin(-midAngle * (Math.PI / 180));
-              const isLeftHalf = midAngle > 90 && midAngle < 270;
-
-              return (
-                <text
-                  x={isLeftHalf ? x - 10 : x + 10} // Adjust position based on left or right half
-                  y={y}
-                  fill="#000000" // Set the fill color to black
-                  textAnchor={isLeftHalf ? "end" : "start"}
-                  dominantBaseline="central"
-                >
-                  {`${(percent * 100).toFixed(2)}%`}
-                </text>
-              );
+    <div className="club-members-section mt-4">
+      <h2 style={{ textAlign: 'center' }}>Club Members</h2>
+      <br/>
+      <div className="d-flex justify-content-around align-items-center flex-wrap">
+        {teamMembers.map((member, index) => (
+          <div
+            key={index}
+            className="member text-center"
+            style={{
+              width: 'calc(50% - 20px)',
+              background: 'var(--team-card-bg)',
+              borderRadius: '5px',
+              position: 'relative',
+              overflow: 'hidden',
+              marginBottom: '20px',
             }}
+            onMouseEnter={() => setShowIcons(index)}
+            onMouseLeave={() => setShowIcons(null)}
           >
-            {pieChartData.map((entry, index) => (
-              <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-            ))}
-          </Pie>
-        </PieChart>
+            <div
+              className="team__img"
+              style={{
+                width: '100%',
+                height: '300px',
+                borderRadius: '15px',
+                overflow: 'hidden',
+                position: 'relative',
+                transition: 'transform 0.3s, backdropFilter 0.3s',
+                backdropFilter: showIcons === index ? 'blur(5px)' : 'none',
+              }}
+            >
+              <img
+                src={member.imgUrl}
+                alt=""
+                style={{
+                  width: '100%',
+                  height: '100%',
+                  objectFit: 'cover',
+                  borderRadius: '15px',
+                  transform: showIcons === index ? 'translateY(20px)' : 'translateY(0)',
+                }}
+              />
+              {showIcons === index && (
+                <div
+                  className="member-buttons"
+                  style={{
+                    position: 'absolute',
+                    bottom: '10px',
+                    left: '50%',
+                    transform: 'translateX(-50%)',
+                    display: 'flex',
+                    justifyContent: 'center',
+                    gap: '10px',
+                  }}
+                >
+                  <a
+                    href={`mailto:${member.name.toLowerCase().replace(' ', '')}@example.com`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    title="Email"
+                  >
+                    <RiMailLine style={{ fontSize: '1.5rem', color: '#007bff' }} />
+                  </a>
+                  <a
+                    href="https://www.instagram.com/chaitanyakreeda/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    title="Instagram"
+                  >
+                    <RiInstagramLine style={{ fontSize: '1.5rem', color: '#e4405f' }} />
+                  </a>
+                </div>
+              )}
+            </div>
+            <div className="team__details" style={{ padding: '20px 15px' }}>
+              <h4
+                style={{
+                  color: 'var(--primary-color)',
+                  fontWeight: '500',
+                  fontSize: '1.2rem',
+                  marginBottom: '0.4rem',
+                }}
+              >
+                {member.name}
+              </h4>
+              <p style={{ color: 'var(--primary-color)', fontSize: '1rem', marginTop: '10px' }}>
+                {member.description}
+              </p>
+              <div className='team__member-social'>
+                <span><i className='ri-linkedin-line'></i></span>
+                <span><i className='ri-twitter-line'></i></span>
+                <span><i className='ri-facebook-line'></i></span>
+              </div>
+            </div>
+          </div>
+        ))}
       </div>
     </div>
   );
 };
 
-export default Statistics;
+export default ClubMembers;
