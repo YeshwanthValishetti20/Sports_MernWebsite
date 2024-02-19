@@ -18,65 +18,63 @@ const ClubMembers = () => {
 
   const teamMembers = [
     {
-      name: 'President',
+
       imgUrl: 'images/image172.jpg',
-      description: 'Vishnu Revanth Reddy',
     },
     {
-      name: 'General Secretary',
       imgUrl: 'images/image173.jpg',
-      description: 'Mansi',
+      
     },
     {
-      name: 'Pre Head',
+     
       imgUrl: 'images/image174.jpg',
-      description: 'Dhruv pechetty ',
+      
     },
     {
-      name: 'convenor',
+      
       imgUrl: 'images/image175.jpg',
-      description: 'Karthik reddy pesaru',
+      
     },
     {
-      name: 'convenor',
+      
       imgUrl: 'images/image176.jpg',
-      description: 'Karthik reddy pesaru',
+      
     },
     {
-      name: 'convenor',
+      
       imgUrl: 'images/image177.jpg',
-      description: 'Karthik reddy pesaru',
+      
     },
     {
-      name: 'convenor',
+      
       imgUrl: 'images/image11.jpg',
-      description: 'Karthik reddy pesaru',
+      
     },
     {
-      name: 'convenor',
+      
       imgUrl: 'images/image12.jpg',
-      description: 'Karthik reddy pesaru',
+      
     },
 
     {
-      name: 'convenor',
+
       imgUrl: 'images/image13.jpg',
-      description: 'Karthik reddy pesaru',
+      
     },
     {
-      name: 'convenor',
+      
       imgUrl: 'images/image14.jpg',
-      description: 'Karthik reddy pesaru',
+      
     },
     {
-      name: 'convenor',
+      
       imgUrl: 'images/image15.jpg',
-      description: 'Karthik reddy pesaru',
+      
     },
     {
-      name: 'convenor',
+      
       imgUrl: 'images/image16.jpg',
-      description: 'Karthik reddy pesaru',
+      
     },
     // Add more team members as needed
   ];
