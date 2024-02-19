@@ -1,130 +1,142 @@
-import React, { useState } from 'react';
+import React, { useRef } from 'react';
 import { RiMailLine, RiInstagramLine } from 'react-icons/ri';
 
 const ClubMembers = () => {
-  const [showIcons, setShowIcons] = useState(null);
+  const scrollRef = useRef(null);
+
+  const scrollLeft = () => {
+    if (scrollRef.current) {
+      scrollRef.current.scrollLeft -= 300; // Adjust scroll amount as needed
+    }
+  };
+
+  const scrollRight = () => {
+    if (scrollRef.current) {
+      scrollRef.current.scrollLeft += 300; // Adjust scroll amount as needed
+    }
+  };
 
   const teamMembers = [
     {
       name: 'President',
-      imgUrl: 'images/presedent.jpg',
+      imgUrl: 'images/image172.jpg',
       description: 'Vishnu Revanth Reddy',
     },
     {
       name: 'General Secretary',
-      imgUrl: 'images/secretary.jpg',
+      imgUrl: 'images/image173.jpg',
       description: 'Mansi',
     },
     {
       name: 'Pre Head',
-      imgUrl: 'images/prehead.jpg',
+      imgUrl: 'images/image174.jpg',
       description: 'Dhruv pechetty ',
     },
     {
       name: 'convenor',
-      imgUrl: 'images/convenor.jpg',
+      imgUrl: 'images/image175.jpg',
       description: 'Karthik reddy pesaru',
     },
+    {
+      name: 'convenor',
+      imgUrl: 'images/image176.jpg',
+      description: 'Karthik reddy pesaru',
+    },
+    {
+      name: 'convenor',
+      imgUrl: 'images/image177.jpg',
+      description: 'Karthik reddy pesaru',
+    },
+    {
+      name: 'convenor',
+      imgUrl: 'images/image11.jpg',
+      description: 'Karthik reddy pesaru',
+    },
+    {
+      name: 'convenor',
+      imgUrl: 'images/image12.jpg',
+      description: 'Karthik reddy pesaru',
+    },
+
+    {
+      name: 'convenor',
+      imgUrl: 'images/image13.jpg',
+      description: 'Karthik reddy pesaru',
+    },
+    {
+      name: 'convenor',
+      imgUrl: 'images/image14.jpg',
+      description: 'Karthik reddy pesaru',
+    },
+    {
+      name: 'convenor',
+      imgUrl: 'images/image15.jpg',
+      description: 'Karthik reddy pesaru',
+    },
+    {
+      name: 'convenor',
+      imgUrl: 'images/image16.jpg',
+      description: 'Karthik reddy pesaru',
+    },
+    // Add more team members as needed
   ];
 
   return (
-    <div className="club-members-section mt-4">
-      <h2 style={{ textAlign: 'center' }}>Club Members</h2>
-      <br/>
-      <div className="d-flex justify-content-around align-items-center">
-        {teamMembers.map((member, index) => (
-          <div
-            key={index}
-            className="member text-center"
-            style={{
-              width: '25%',
-              background: 'var(--team-card-bg)',
-              borderRadius: '5px',
-              position: 'relative',
-              overflow: 'hidden',
-              margin: '0 10px', // Added margin to create space between images
-            }}
-            onMouseEnter={() => setShowIcons(index)}
-            onMouseLeave={() => setShowIcons(null)}
-          >
+    <div className="container mt-4">
+      <h2 className="text-center">Club Members</h2>
+      <div className="row">
+        <div
+          className="col-md-12 d-flex overflow-hidden"
+          style={{ maxWidth: '100%', overflowX: 'scroll', WebkitOverflowScrolling: 'touch' }}
+          ref={scrollRef}
+        >
+          {teamMembers.map((member, index) => (
             <div
-              className="team__img"
+              key={index}
+              className="member text-center"
               style={{
-                width: '100%',
-                height: '200px',
-                borderRadius: '15px',
-                overflow: 'hidden',
-                position: 'relative',
-                transition: 'transform 0.3s, backdropFilter 0.3s',
-                backdropFilter: showIcons === index ? 'blur(5px)' : 'none', // Apply blur effect only on mouse enter
+                flex: '0 0 auto',
+                background: 'var(--team-card-bg)',
+                borderRadius: '5px',
+                margin: '0 10px',
               }}
             >
-              <img
-                src={member.imgUrl}
-                alt=""
-                style={{
-                  width: '100%',
-                  height: '100%',
-                  objectFit: 'cover',
-                  borderRadius: '15px',
-                  transform: showIcons === index ? 'translateY(20px)' : 'translateY(0)',
-                }}
-              />
-              {showIcons === index && (
-                <div
-                  className="member-buttons"
+              <div className="team__img" style={{ height: '200px', overflow: 'hidden' }}>
+                <img
+                  src={member.imgUrl}
+                  alt=""
+                  style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                />
+              </div>
+              <div className="team__details" style={{ padding: '20px 15px' }}>
+                <h4
                   style={{
-                    position: 'absolute',
-                    bottom: '10px',
-                    left: '50%',
-                    transform: 'translateX(-50%)',
-                    display: 'flex',
-                    justifyContent: 'center',
-                    gap: '10px',
+                    color: 'var(--primary-color)',
+                    fontWeight: '500',
+                    fontSize: '1.2rem',
+                    marginBottom: '0.4rem',
                   }}
                 >
-                  <a
-                    href={`mailto:${member.name.toLowerCase().replace(' ', '')}@example.com`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    title="Email"
-                  >
-                    <RiMailLine style={{ fontSize: '1.5rem', color: '#007bff' }} />
-                  </a>
-                  <a
-  href="https://www.instagram.com/chaitanyakreeda/"
-  target="_blank"
-  rel="noopener noreferrer"
-  title="Instagram"
->
-  <RiInstagramLine style={{ fontSize: '1.5rem', color: '#e4405f' }} />
-</a>
-
+                  {member.name}
+                </h4>
+                <p style={{ color: 'var(--primary-color)', fontSize: '1rem', marginTop: '10px' }}>
+                  {member.description}
+                </p>
+                <div className="team__member-social">
+                  {/* Add your social icons here */}
                 </div>
-              )}
-            </div>
-            <div className="team__details" style={{ padding: '20px 15px' }}>
-              <h4
-                style={{
-                  color: 'var(--primary-color)',
-                  fontWeight: '500',
-                  fontSize: '1.2rem',
-                  marginBottom: '0.4rem',
-                }}
-              >
-                {member.name}
-              </h4>
-              <p style={{ color: 'var(--primary-color)', fontSize: '1rem', marginTop: '10px' }}>
-                {member.description}
-              </p>
-              <div className='team__member-social'>
-                <span><i className='ri-linkedin-line'></i></span>
-                <span><i className='ri-twitter-line'></i></span>
-                <span><i className='ri-facebook-line'></i></span>
               </div>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
+        <div className="col-md-12 d-flex justify-content-between mt-3">
+          <button className="btn btn-primary" onClick={scrollLeft}>
+            Scroll Left
+          </button>
+          <button className="btn btn-primary" onClick={scrollRight}>
+            Scroll Right
+          </button>
+        </div>
       </div>
     </div>
   );
